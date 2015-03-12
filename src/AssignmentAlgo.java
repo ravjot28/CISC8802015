@@ -32,27 +32,27 @@ public class AssignmentAlgo {
 		children = new ArrayList<Node>();
 		Node doFilter1 = new Node();
 		children.add(doFilter1);
-		algo.addNode(doFilterInternal, children, doFilter, 56);
+		algo.addNode(doFilterInternal, children, doFilter, 57);
 
 		children = new ArrayList<Node>();
 		Node service = new Node();
 		children.add(service);
-		algo.addNode(doFilterInternal1, children, doFilter, 56);
+		algo.addNode(doFilterInternal1, children, doFilter, 57);
 
 		children = new ArrayList<Node>();
 		Node doGet = new Node();
 		Node doPut = new Node();
 		children.add(doGet);
 		children.add(doPut);
-		algo.addNode(service, children, doFilterInternal1, 56);
+		algo.addNode(service, children, doFilterInternal1, 57);
 
 		children = new ArrayList<Node>();
 		Node processRequest = new Node();
 		Node processRequest1 = new Node();
 		children.add(processRequest);
 		algo.addNode(doGet, children, service, 56);
+		algo.addNode(doPut, children, service, 62);
 
-		
 		
 		children = new ArrayList<Node>();
 		Node doService = new Node();
@@ -70,7 +70,7 @@ public class AssignmentAlgo {
 		Node processDispatchResult = new Node();
 		children.add(handle);
 		children.add(processDispatchResult);
-		algo.addNode(doDispatch, children, doService, );
+		algo.addNode(doDispatch, children, doService, 57);
 		
 		children = new ArrayList<Node>();
 		Node handleInternal = new Node();
@@ -80,7 +80,7 @@ public class AssignmentAlgo {
 		children = new ArrayList<Node>();
 		Node render = new Node();
 		children.add(render);
-		algo.addNode(processDispatchResult, children, doDispatch, 17);
+		algo.addNode(processDispatchResult, children, doDispatch, 16);
 		
 		
 		children = new ArrayList<Node>();
@@ -96,27 +96,27 @@ public class AssignmentAlgo {
 		children = new ArrayList<Node>();
 		Node invokeAndHandle = new Node();
 		children.add(invokeAndHandle);
-		algo.addNode(invokeHandleMethod, children, handleInternal, 46);
+		algo.addNode(invokeHandleMethod, children, handleInternal, 47);
 		
 		children = new ArrayList<Node>();
 		Node renderMergedOutputModel = new Node();
 		children.add(renderMergedOutputModel);
-		algo.addNode(render1, children, render, 19);
+		algo.addNode(render1, children, render, 17);
 		
 		children = new ArrayList<Node>();
 		Node invokeForRequest = new Node();
 		children.add(invokeForRequest);
-		algo.addNode(invokeAndHandle, children, invokeHandleMethod, 28);
+		algo.addNode(invokeAndHandle, children, invokeHandleMethod, 46);
 		
 		children = new ArrayList<Node>();
 		Node doEndTag = new Node();
 		children.add(doEndTag);
-		algo.addNode(renderMergedOutputModel, children, render1, 22);
+		algo.addNode(renderMergedOutputModel, children, render1, 19);
 		
 		children = new ArrayList<Node>();
 		Node doInvoke = new Node();
 		children.add(doInvoke);
-		algo.addNode(invokeForRequest, children, invokeAndHandle, 18);
+		algo.addNode(invokeForRequest, children, invokeAndHandle, 28);
 		
 		children = new ArrayList<Node>();
 		Node setupHtmlGeneration = new Node();
@@ -132,12 +132,39 @@ public class AssignmentAlgo {
 		children.add(showVitList);
 		Node ProcessUpdateOwnerForm = new Node();
 		children.add(ProcessUpdateOwnerForm);
-		//algo.addNode(doInvoke, children, invokeForRequest, );
+		algo.addNode(doInvoke, children, invokeForRequest, 18);
+		
+		
+		children = new ArrayList<Node>();
+		Node invoke = new Node();
+		children.add(invoke);
+		
+		algo.addNode(processFindForm, children, doInvoke, 155);
+		children = new ArrayList<Node>();
+		Node invoke1 = new Node();
+		children.add(invoke1);
+		algo.addNode(showOwner, children, doInvoke, 25);
+		children = new ArrayList<Node>();
+		Node invoke2 = new Node();
+		children.add(invoke2);
+		algo.addNode(showVitList, children, doInvoke, 41);
+		children = new ArrayList<Node>();
+		Node invoke3 = new Node();
+		children.add(invoke3);
+		algo.addNode(ProcessUpdateOwnerForm, children, doInvoke, 40);
+		
+		children = new ArrayList<Node>();
+		Node proceed = new Node();
+		children.add(proceed);
+		algo.addNode(invoke, children, processFindForm, 48);
+		algo.addNode(invoke1, children, showOwner, 48);
+		algo.addNode(invoke2, children, showVitList, 48);
+		algo.addNode(invoke3, children, ProcessUpdateOwnerForm, 48);
 		
 		children = new ArrayList<Node>();
 		Node generateWebResources = new Node();
 		children.add(generateWebResources);
-		algo.addNode(setupHtmlGeneration, children, doEndTag, 20);
+		algo.addNode(setupHtmlGeneration, children, doEndTag, 22);
 		
 		children = new ArrayList<Node>();
 		Node invoke = new Node();
@@ -224,6 +251,8 @@ public class AssignmentAlgo {
 		Node proceed1 = new Node();
 		children.add(proceed1);
 		algo.addNode(invoke6, children, invokeAdvicedMethodWithGivenArgs, 48);
+		
+		
 		
 		algo.calculateHeight(algo.root);
 		System.out.println(algo.root.getHeight());
