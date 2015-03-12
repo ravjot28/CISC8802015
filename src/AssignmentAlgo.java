@@ -3,121 +3,61 @@ import java.util.List;
 
 public class AssignmentAlgo {
 
-	public static void main(String[] args) {
+	private Node root;
 
-		Node doFilter = new Node();
-		Node doFilter1 = new Node();
+	public void addNode(Node currNode, List<Node> children, Node parent, int cost) {
+
+		currNode.setChildren(children);
+		currNode.setCost(cost);
+		currNode.setParent(parent);
+
+	}
+
+	public static void main(String[] args) {
+		AssignmentAlgo algo = new AssignmentAlgo();
+		algo.root = new Node();
 
 		List<Node> children = new ArrayList<Node>();
-		children.add(doFilter1);
-		doFilter.setChildren(children);
-		doFilter.setCost(58);
-		Method m = new Method();
-		List<Node> nodes = new ArrayList<Node>();
-		nodes.add(doFilter);
-		m.setNodes(nodes);
-		doFilter.setMethod(m);
-		doFilter.setParent(null);
+		Node doFilter = new Node();
+		children.add(doFilter);
+		algo.addNode(algo.root, children, null, 58);
 
+		children = new ArrayList<Node>();
 		Node doFilterInternal = new Node();
 		Node doFilterInternal1 = new Node();
-		children = new ArrayList<Node>();
 		children.add(doFilterInternal);
 		children.add(doFilterInternal1);
-		doFilter1.setChildren(children);
-		doFilter1.setCost(57);
-		m = new Method();
-		nodes = new ArrayList<Node>();
-		nodes.add(doFilter1);
-		m.setNodes(nodes);
-		doFilter1.setMethod(m);
-		doFilter1.setParent(doFilter);
-		
-		
-		Node service = new Node();
+		algo.addNode(doFilter, children, algo.root, 57);
+
 		children = new ArrayList<Node>();
-		children.add(doGet);
-		children.add(doPut);
-		service.setChildren(children);
-		service.setCost(57);
-		m = new Method();
-		nodes = new ArrayList<Node>();
-		nodes.add(doFilterInternal1);
-		m.setNodes(nodes);
-		doFilterInternal1.setMethod(m);
-		doFilterInternal1.setParent(doFilter1);
-		
+		Node doFilter1 = new Node();
+		children.add(doFilter1);
+		algo.addNode(doFilterInternal, children, doFilter, 56);
+
+		children = new ArrayList<Node>();
+		Node service = new Node();
+		children.add(service);
+		algo.addNode(doFilterInternal1, children, doFilter, 56);
+
+		children = new ArrayList<Node>();
 		Node doGet = new Node();
 		Node doPut = new Node();
-		children = new ArrayList<Node>();
-		children.add(ProcessRequest);
-		doGet.setChildren(children);
-		doGet.setCost(56);
-		doPut.setChildren(children);
-		doPut.setCost(62);
-		m = new Method();
-		nodes = new ArrayList<Node>();
-		nodes.add(service);
-		m.setNodes(nodes);
-		service.setMethod(m);
-		service.setParent(doFilterInternal1);
-		
-		Node ProcessRequest = new Node();
-		children = new ArrayList<Node>();
-		children.add(doService);
-		ProcessRequest.setChildren(children);
-		ProcessRequest.setCost(57);
-		m = new Method();
-		nodes = new ArrayList<Node>();
-		nodes.add(doGet);
-		nodes.add(doPut);
-		m.setNodes(nodes);
-		doGet.setMethod(m);
-		doGet.setParent(service);
-		doPut.setMethod(m);
-		doPut.setParent(service);
-		
-		Node doService = new Node();
-		children = new ArrayList<Node>();
-		children.add(doDispatch);
-		doService.setChildren(children);
-		doService.setCost(57);
-		m = new Method();
-		nodes = new ArrayList<Node>();
-		nodes.add(ProcessRequest);
-		m.setNodes(nodes);
-		ProcessRequest.setMethod(m);
-		ProcessRequest.setParent(service);
+		children.add(doGet);
+		children.add(doPut);
+		algo.addNode(service, children, doFilterInternal1, 56);
 
-		
-		Node doDispatch = new Node();
 		children = new ArrayList<Node>();
-		children.add(handle);
-		children.add(processDispatchResult);
-		doDispatch.setChildren(children);
-		doDispatch.setCost(57);
-		m = new Method();
-		nodes = new ArrayList<Node>();
-		nodes.add(doService);
-		m.setNodes(nodes);
-		doService.setMethod(m);
-		doService.setParent(service);
-		
-		Node doDispatch = new Node();
+		Node processRequest = new Node();
+		children.add(processRequest);
+		algo.addNode(doGet, children, service, 56);
+
 		children = new ArrayList<Node>();
-		children.add(handle);
-		children.add(processDispatchResult);
-		doDispatch.setChildren(children);
-		doDispatch.setCost(57);
-		m = new Method();
-		nodes = new ArrayList<Node>();
-		nodes.add(doService);
-		m.setNodes(nodes);
-		doService.setMethod(m);
-		doService.setParent(service);		
-		
-		
-		
+		children.add(processRequest);
+		algo.addNode(doPut, children, service, 56);
+
+		algo.calculateHeight(algo.root);
+		System.out.println(algo.root.getHeight());
+
 	}
 
 	public void reduceRecursivePaths(Node n) {
@@ -126,7 +66,7 @@ public class AssignmentAlgo {
 		n.getAdjustedParent().getAdjustedChildren().add(n);
 		List<Node> nodes = n.getChildren();
 		for (Node c : nodes)
-			reduceRecursivePaths(n);
+			reduceRecursivePaths(c);
 	}
 
 	public Node findAdjustedParent(Node current) {
