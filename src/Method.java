@@ -7,6 +7,15 @@ public class Method {
 	private int induced;
 	private Method commonParent;
 	private boolean isSubsumed;
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public List<Node> getNodes() {
 		return nodes;

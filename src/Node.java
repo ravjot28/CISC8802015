@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
@@ -10,6 +11,10 @@ public class Node {
 	private List<Node> adjustedChildren;
 	private int height;
 	private int induced;
+	
+	public Node(){
+		adjustedChildren = new ArrayList<Node>();
+	}
 
 	public Method getMethod() {
 		return method;
