@@ -5,6 +5,14 @@ public class Tree {
 	private Node root;
 	private List<Method> methods;
 
+	public void addNode(Node currNode, List<Node> children, Node parent, int cost) {
+
+		currNode.setChildren(children);
+		currNode.setCost(cost);
+		currNode.setParent(parent);
+
+	}
+
 	public Node getRoot() {
 		return root;
 	}
